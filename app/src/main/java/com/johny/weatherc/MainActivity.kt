@@ -9,14 +9,10 @@ import androidx.activity.addCallback
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import com.johny.weatherc.presentation.ui.screen.Root
-import com.johny.weatherc.presentation.ui.screen.Routes
-import com.johny.weatherc.presentation.ui.screen.splash.SplashScreen
 import com.johny.weatherc.presentation.ui.theme.WeatherCTheme
 import dagger.hilt.android.AndroidEntryPoint
 
