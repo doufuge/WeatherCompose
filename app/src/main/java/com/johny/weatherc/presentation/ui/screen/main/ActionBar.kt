@@ -1,4 +1,4 @@
-package com.johny.weatherc.ui.screen.main
+package com.johny.weatherc.presentation.ui.screen.main
 
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.core.tween
@@ -35,7 +35,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.johny.weatherc.R
-import com.johny.weatherc.ui.theme.WeatherCTheme
+import com.johny.weatherc.presentation.ui.theme.WeatherCTheme
 
 @Composable
 fun ActionBar(

@@ -1,12 +1,12 @@
-package com.johny.weatherc.ui.screen
+package com.johny.weatherc.presentation.ui.screen
 
 import androidx.activity.compose.BackHandler
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.johny.weatherc.ui.screen.main.MainScreen
-import com.johny.weatherc.ui.screen.splash.SplashScreen
+import com.johny.weatherc.presentation.ui.screen.main.MainScreen
+import com.johny.weatherc.presentation.ui.screen.splash.SplashScreen
 
 @Composable
 fun Root(

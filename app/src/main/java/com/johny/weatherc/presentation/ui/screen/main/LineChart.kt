@@ -1,4 +1,4 @@
-package com.johny.weatherc.ui.screen.main
+package com.johny.weatherc.presentation.ui.screen.main
 
 import android.graphics.Paint
 import androidx.compose.foundation.Canvas
@@ -22,7 +22,7 @@ import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.johny.weatherc.model.WeatherItem
+import com.johny.weatherc.domain.model.WeatherItem
 import com.johny.weatherc.utils.TimeUtil
 
 const val START_X = 100f

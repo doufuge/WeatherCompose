@@ -1,6 +1,6 @@
-package com.johny.weatherc.data.api
+package com.johny.weatherc.data.remote.api
 
-import com.johny.weatherc.model.WeatherResponse
+import com.johny.weatherc.data.remote.enitty.WeatherResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 

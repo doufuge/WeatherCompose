@@ -1,4 +1,4 @@
-package com.johny.weatherc.ui.screen.splash
+package com.johny.weatherc.presentation.ui.screen.splash
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -29,7 +29,7 @@ import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.johny.weatherc.R
-import com.johny.weatherc.ui.theme.WeatherCTheme
+import com.johny.weatherc.presentation.ui.theme.WeatherCTheme
 
 @Composable
 fun SplashScreen(

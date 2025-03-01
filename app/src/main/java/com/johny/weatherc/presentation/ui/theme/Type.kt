@@ -1,4 +1,4 @@
-package com.johny.weatherc.ui.theme
+package com.johny.weatherc.presentation.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

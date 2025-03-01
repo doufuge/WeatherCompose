@@ -1,4 +1,4 @@
-package com.johny.weatherc.ui.theme
+package com.johny.weatherc.presentation.ui.theme
 
 import android.app.Activity
 import android.os.Build

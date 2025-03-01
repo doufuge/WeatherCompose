@@ -1,4 +1,4 @@
-package com.johny.weatherc.model
+package com.johny.weatherc.data.remote.enitty
 
 import java.io.Serializable
 

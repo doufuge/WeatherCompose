@@ -1,4 +1,4 @@
-package com.johny.weatherc.ui.screen.main
+package com.johny.weatherc.presentation.ui.screen.main
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -7,21 +7,22 @@ import android.location.LocationListener
 import android.location.LocationManager
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.johny.weatherc.data.Resp
-import com.johny.weatherc.data.WeatherAction
-import com.johny.weatherc.model.WeatherItem
+import com.johny.weatherc.domain.model.WeatherItem
+import com.johny.weatherc.domain.usecase.FetchWeatherUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val weatherAction: WeatherAction,
+    private val fetchWeatherUseCase: FetchWeatherUseCase,
     @ApplicationContext private val context: Context
 ) : ViewModel() {
 
@@ -46,32 +47,19 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    private val _showTable = MutableStateFlow(false)
-    private val _loading = MutableStateFlow(true)
-    private val _uiEvent = MutableStateFlow<MainUiEvent?>(null)
-    private val _tip = MutableStateFlow("")
-    private val _data = MutableStateFlow<List<WeatherItem>>(emptyList())
     private var fetchJob: Job? = null
     private val _state = MutableStateFlow(State())
-    val state: StateFlow<State> get() = _state
-
-    init {
-        viewModelScope.launch {
-            combine(_showTable, _loading, _uiEvent, _tip, _data) { showTable, loading, uiEvent, tip, data ->
-                State(showTable, loading, uiEvent, tip, data)
-            }.collect {
-                _state.value = it
-            }
-        }
-    }
+    val state: StateFlow<State> = _state.asStateFlow()
 
     @SuppressLint("MissingPermission")
     fun getLocation() {
         val isGpsEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
         val isNetworkEnabled = locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)
         if (!isGpsEnabled && !isNetworkEnabled) {
-            _loading.value = false
-            _uiEvent.value = MainUiEvent.ShowTip("GPS or Network disabled!", false)
+            _state.update {it.copy(
+                loading = false,
+                uiEvent = MainUiEvent.ShowTip("GPS or Network disabled!", false)
+            )}
             return
         }
         when {
@@ -82,27 +70,25 @@ class MainViewModel @Inject constructor(
 
     fun fetchWeather() {
         fetchJob?.cancel()
-        _loading.value = true
+        _state.update { it.copy(loading = true) }
         fetchJob = viewModelScope.launch {
-            weatherAction.fetchWeather(latitude, longitude).let { resp ->
-                if (resp is Resp.Ok) {
-                    val tempUnit = resp.data.hourly_units.temperature_2m
-                    if (resp.data.hourly.time.size == resp.data.hourly.temperature_2m.size) {
-                        _data.value = resp.data.hourly.time.mapIndexed { index, time ->
-                            WeatherItem(time, resp.data.hourly.temperature_2m[index], tempUnit)
-                        }
-                    }
-                    _loading.value = false
-                    _uiEvent.value = MainUiEvent.ShowTip("Fetch Success", true)
-                } else if (resp is Resp.Error) {
-                    _uiEvent.value = MainUiEvent.ShowTip("Fetch failed ${resp.e.message}", true)
-                }
+            try {
+                val data = fetchWeatherUseCase(latitude, longitude).first()
+                _state.update { it.copy(
+                    loading = false,
+                    data = data,
+                    uiEvent = MainUiEvent.ShowTip("Fetch weather success!", true))}
+            } catch (e: Exception) {
+                e.printStackTrace()
+                _state.update { it.copy(
+                    loading = false,
+                    uiEvent = MainUiEvent.ShowTip("Fetch weather data error!", false))}
             }
         }
     }
 
     fun toggleViewType() {
-        _showTable.value = _showTable.value.not()
+        _state.update { it.copy(showTable = it.showTable.not()) }
     }
 
     override fun onCleared() {

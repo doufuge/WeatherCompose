@@ -1,4 +1,4 @@
-package com.johny.weatherc.ui.theme
+package com.johny.weatherc.presentation.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

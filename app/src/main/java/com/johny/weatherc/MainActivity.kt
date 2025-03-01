@@ -14,10 +14,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import com.johny.weatherc.ui.screen.Root
-import com.johny.weatherc.ui.screen.Routes
-import com.johny.weatherc.ui.screen.splash.SplashScreen
-import com.johny.weatherc.ui.theme.WeatherCTheme
+import com.johny.weatherc.presentation.ui.screen.Root
+import com.johny.weatherc.presentation.ui.screen.Routes
+import com.johny.weatherc.presentation.ui.screen.splash.SplashScreen
+import com.johny.weatherc.presentation.ui.theme.WeatherCTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

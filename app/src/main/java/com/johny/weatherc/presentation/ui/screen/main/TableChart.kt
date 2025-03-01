@@ -1,4 +1,4 @@
-package com.johny.weatherc.ui.screen.main
+package com.johny.weatherc.presentation.ui.screen.main
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -22,7 +22,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.johny.weatherc.model.WeatherItem
+import com.johny.weatherc.domain.model.WeatherItem
 
 @Composable
 fun TableChart(

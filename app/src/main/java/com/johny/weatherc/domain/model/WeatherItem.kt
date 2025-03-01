@@ -1,4 +1,4 @@
-package com.johny.weatherc.model
+package com.johny.weatherc.domain.model
 
 data class WeatherItem(
     val hour: String,

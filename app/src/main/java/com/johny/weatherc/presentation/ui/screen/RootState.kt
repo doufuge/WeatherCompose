@@ -1,4 +1,4 @@
-package com.johny.weatherc.ui.screen
+package com.johny.weatherc.presentation.ui.screen
 
 import android.content.Context
 import android.net.ConnectivityManager

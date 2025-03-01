@@ -1,4 +1,4 @@
-package com.johny.weatherc.ui.screen.main
+package com.johny.weatherc.presentation.ui.screen.main
 
 sealed class MainUiEvent {
 

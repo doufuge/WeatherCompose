@@ -1,4 +1,4 @@
-package com.johny.weatherc.ui.screen.main
+package com.johny.weatherc.presentation.ui.screen.main
 
 import android.Manifest
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -48,7 +48,7 @@ import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.johny.weatherc.R
-import com.johny.weatherc.ui.theme.WeatherCTheme
+import com.johny.weatherc.presentation.ui.theme.WeatherCTheme
 import kotlinx.coroutines.delay
 
 @Composable
@@ -57,7 +57,6 @@ fun MainScreen(
 ) {
 
     val context = LocalContext.current
-
     val state by viewModel.state.collectAsStateWithLifecycle()
     var showTip by remember { mutableStateOf(false) }
     var tip by remember { mutableStateOf("") }

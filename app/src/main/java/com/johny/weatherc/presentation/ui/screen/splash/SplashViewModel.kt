@@ -1,4 +1,4 @@
-package com.johny.weatherc.ui.screen.splash
+package com.johny.weatherc.presentation.ui.screen.splash
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
