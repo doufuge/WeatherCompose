@@ -2,13 +2,13 @@ package com.johny.weatherc.data
 
 import java.lang.Exception
 
-sealed class Resp<out R> {
+sealed class Result<out R> {
 
-    data class Ok<out T>(val data: T): Resp<T>()
+    data class Ok<out T>(val data: T): Result<T>()
 
-    data class Error(val e: Exception): Resp<Nothing>()
+    data class Error(val e: Exception): Result<Nothing>()
 
-    object Loading: Resp<Nothing>()
+    object Loading: Result<Nothing>()
 
     override fun toString(): String {
         return when(this) {
@@ -19,6 +19,3 @@ sealed class Resp<out R> {
     }
 
 }
-
-val Resp<*>.succeeded
-    get() = this is Resp.Ok && data != null

@@ -7,6 +7,7 @@ import android.location.LocationListener
 import android.location.LocationManager
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.johny.weatherc.data.Result
 import com.johny.weatherc.domain.model.WeatherItem
 import com.johny.weatherc.domain.usecase.FetchWeatherUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -15,7 +16,6 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -70,19 +70,24 @@ class MainViewModel @Inject constructor(
 
     fun fetchWeather() {
         fetchJob?.cancel()
-        _state.update { it.copy(loading = true) }
         fetchJob = viewModelScope.launch {
-            try {
-                val data = fetchWeatherUseCase(latitude, longitude).first()
-                _state.update { it.copy(
-                    loading = false,
-                    data = data,
-                    uiEvent = MainUiEvent.ShowTip("Fetch weather success!", true))}
-            } catch (e: Exception) {
-                e.printStackTrace()
-                _state.update { it.copy(
-                    loading = false,
-                    uiEvent = MainUiEvent.ShowTip("Fetch weather data error!", false))}
+            fetchWeatherUseCase(latitude, longitude).collect { resp ->
+                when (resp) {
+                    is Result.Loading -> {
+                        _state.update { it.copy( loading = false)}
+                    }
+                    is Result.Ok -> {
+                        _state.update { it.copy(
+                            loading = false,
+                            data = resp.data,
+                            uiEvent = MainUiEvent.ShowTip("Fetch weather success!", true))}
+                    }
+                    is Result.Error -> {
+                        _state.update { it.copy(
+                            loading = false,
+                            uiEvent = MainUiEvent.ShowTip("Fetch weather data error!", false))}
+                    }
+                }
             }
         }
     }

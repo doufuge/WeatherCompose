@@ -1,5 +1,6 @@
 package com.johny.weatherc.domain.usecase
 
+import com.johny.weatherc.data.Result
 import com.johny.weatherc.domain.model.WeatherItem
 import com.johny.weatherc.domain.repository.WeatherRepository
 import kotlinx.coroutines.flow.Flow
@@ -12,5 +13,5 @@ class FetchWeatherUseCase @Inject constructor(
         latitude: Double,
         longitude: Double,
         hourly: String? = "temperature_2m",
-    ): Flow<List<WeatherItem>> = repository.fetcherWeather(latitude, longitude, hourly)
+    ): Flow<Result<List<WeatherItem>>> = repository.fetcherWeather(latitude, longitude, hourly)
 }

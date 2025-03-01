@@ -1,5 +1,6 @@
 package com.johny.weatherc.domain.repository
 
+import com.johny.weatherc.data.Result
 import com.johny.weatherc.domain.model.WeatherItem
 import kotlinx.coroutines.flow.Flow
 
@@ -9,6 +10,6 @@ interface WeatherRepository {
         latitude: Double,
         longitude: Double,
         hourly: String? = "temperature_2m",
-    ): Flow<List<WeatherItem>>
+    ): Flow<Result<List<WeatherItem>>>
 
 }
