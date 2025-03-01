@@ -1,27 +1,34 @@
 package com.johny.weatherc.data.remote.enitty
 
+import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
 data class WeatherResponse(
     val latitude: Double,
     val longitude: Double,
-    val generationtime_ms: Double,
-    val utc_offset_seconds: Int,
+    @SerializedName("generationtime_ms")
+    val generationTimeMs: Double,
+    @SerializedName("utc_offset_seconds")
+    val utcOffsetSeconds: Int,
     val timezone: String,
-    val timezone_abbreviation: String,
+    @SerializedName("timezone_abbreviation")
+    val timezoneAbbreviation: String,
     val elevation: Int,
-    val hourly_units: HourlyUnits,
+    @SerializedName("hourly_units")
+    val hourlyUnits: HourlyUnits,
     val hourly: Hourly,
 ) : Serializable {
 
     data class HourlyUnits(
         val time: String,
-        val temperature_2m: String,
+        @SerializedName("temperature_2m")
+        val temperature2m: String,
     )
 
     data class Hourly(
         val time: List<String>,
-        val temperature_2m: List<Float>,
+        @SerializedName("temperature_2m")
+        val temperature2m: List<Float>,
     )
 
 }
